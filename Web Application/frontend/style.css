@@ -1,0 +1,783 @@
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 50, 40, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #0003;
+  padding: 2rem;
+  min-width: 320px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #1a4d2e;
+  cursor: pointer;
+}
+
+/* Progress bar styles */
+.progress-bar {
+  width: 100%;
+  background: #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 18px;
+  margin: 0.5rem 0;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #43a047 0%, #b2ff59 100%);
+  transition: width 0.4s;
+}
+  /* Generic media-safe elements */
+  img, canvas, video {
+  max-width: 100%;
+  height: auto;
+}
+input, select, button, textarea {
+  font: inherit;
+}
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -220px;
+  width: 220px;
+  height: 100vh;
+  background: #1a4d2e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 12px #0002;
+  z-index: 102;
+  transition: left 0.3s ease;
+}
+.sidebar.visible {
+  left: 0;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem 1rem 1rem;
+}
+.sidebar-logo {
+  width: 36px;
+  height: 36px;
+}
+.sidebar-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+.sidebar-menu li {
+  margin: 0.5rem 0;
+}
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.08rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px 0 0 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.sidebar-menu a.active {
+  background: #388e3c;
+  color: #b2ff59;
+}
+.sidebar-menu .icon {
+  font-size: 1.2rem;
+}
+/* Hamburger menu icon */
+.hamburger-menu {
+  position: fixed;
+  top: 1.5rem;
+  left: 1rem;
+  width: 40px;
+  height: 40px;
+  background: #1a4d2e;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 103;
+  box-shadow: 0 2px 8px #0003;
+  transition: background 0.2s;
+}
+/* Hover state for hamburger is applied only on hover-capable devices via media query below */
+.hamburger-menu span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.main-content {
+  margin-left: 20px;
+  padding: 2rem;
+  max-width: 900px;
+  transition: margin-left 0.3s ease;
+}
+.main-content.sidebar-open {
+  margin-left: 240px;
+}
+@media (max-width: 900px) {
+  .main-content, .main-content.sidebar-open {
+    margin-left: 0;
+    padding: 1rem;
+    padding-top: 5rem;
+  }
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+  .sidebar.visible {
+    left: 0;
+  }
+  .hamburger-menu {
+    top: 1rem;
+  }
+}
+
+/* Overlay behind the sidebar when open (mobile UX) */
+#sidebarOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  z-index: 101; /* sits below sidebar but above main content */
+}
+#sidebarOverlay.visible {
+  display: block;
+}
+
+/* Prevent body scroll when sidebar + overlay are active */
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: linear-gradient(135deg, #e8f5e9 0%, #f4f6f8 100%);
+  color: #1a2b2e;
+  min-height: 100vh;
+}
+
+nav {
+  background: #1a4d2e;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px #0002;
+}
+nav h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+/* Anchor hover color is applied only on hover-capable devices (see media query at end) */
+
+main, .main-content {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #0001;
+}
+
+/* Card/grid containers for lists */
+#boxStatusGrid, #bins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.dashboard-tabs button {
+  background: #e0f2f1;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px 8px 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a4d2e;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.dashboard-tabs button.active {
+  background: #1a4d2e;
+  color: #fff;
+}
+
+.card, .bin-status {
+  background: #f8fff6;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 1.5rem 1.25rem;
+  margin: 1rem 0;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  transition: box-shadow 0.2s;
+}
+/* Hover shadow is applied only on hover-capable devices (see media query at end of file) */
+
+button, .btn {
+  background: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0.5rem 0;
+  transition: background 0.2s;
+}
+/* Button hover styles are applied only on devices that support hover (see media query below) */
+
+.notification-popup {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #1a4d2e;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0003;
+  z-index: 1000;
+  font-size: 1.1rem;
+  animation: fadeInOut 3s linear;
+  max-width: 90vw;
+  word-wrap: break-word;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+ul, ol {
+  padding-left: 1.5rem;
+}
+
+h2, h3, h4 {
+  color: #1a4d2e;
+  margin-top: 0;
+}
+
+a {
+  color: #388e3c;
+  text-decoration: underline;
+}
+/* Anchor hover color applied only on hover-capable devices */
+
+@media (max-width: 900px) {
+  main, .main-content {
+    padding: 1rem;
+  }
+}
+@media (max-width: 600px) {
+  nav ul { flex-direction: column; gap: 0.5rem; }
+  main, .main-content {
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+  .bin-status, .card {
+    font-size: 0.95rem;
+    padding: 1rem 0.75rem;
+  }
+  /* Make modal form controls full-width on phones */
+  .modal-content form label { display:block; margin-top: 0.5rem; }
+  .modal-content form select,
+  .modal-content form input,
+  .modal-content form button { width: 100%; box-sizing: border-box; }
+}
+
+/* Enhanced Dashboard Styles */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #1a4d2e 0%, #388e3c 100%);
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(26, 77, 46, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effects for stat-card are applied only on hover-capable devices (see media query below) */
+
+.stat-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #b2ff59;
+}
+
+.stat-card .value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.stat-card .label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Rewards & Badges */
+.rewards-section {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+}
+
+.rewards-section h3 {
+  margin: 0 0 1rem 0;
+  color: #1a4d2e;
+}
+
+.badges-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.badge {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  min-width: 100px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+/* Hover effects for badges are applied only on hover-capable devices (see media query below) */
+
+.badge-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a4d2e;
+}
+
+.badge.locked {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+/* Progress Ring */
+.progress-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.progress-ring svg {
+  transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+  fill: none;
+  stroke-width: 8;
+}
+
+.progress-ring .bg {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+
+.progress-ring .progress {
+  stroke: #b2ff59;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s;
+}
+
+.progress-ring-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Bin Selection Cards */
+.bin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.bin-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 2px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.bin-card.selected {
+  border-color: #1a4d2e;
+  background: #f1f8f4;
+  box-shadow: 0 4px 16px rgba(26, 77, 46, 0.3);
+}
+
+.bin-card.full {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-color: #ff5252;
+}
+
+.bin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.bin-location {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a4d2e;
+}
+
+.bin-status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.bin-status-badge.available {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.bin-status-badge.full {
+  background: #ffcdd2;
+  color: #c62828;
+}
+
+.bin-capacity {
+  margin: 0.75rem 0;
+}
+
+.capacity-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.capacity-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.capacity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #43a047 0%, #66bb6a 100%);
+  border-radius: 4px;
+  transition: width 0.5s;
+}
+
+.capacity-fill.warning {
+  background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+}
+
+.capacity-fill.full {
+  background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
+}
+
+.bin-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.category-tag {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Category Icons */
+.category-icon {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+}
+
+/* E-Waste Category Selector */
+.category-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.category-option {
+  background: #f5f5f5;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+/* Hover styles for category-option are applied only on hover-capable devices (see media query below) */
+
+.category-option.selected {
+  background: #c8e6c9;
+  border-color: #1a4d2e;
+}
+
+.category-option .icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.category-option .name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a4d2e;
+}
+
+/* Chart Container */
+.chart-container {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.chart-container h3 {
+  margin-top: 0;
+}
+
+/* Impact Metrics */
+.impact-grid {
+  display: grid;
+.iot-result-card {
+  background: linear-gradient(180deg,#ffffff 0%, #f4f6f8 100%);
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+.iot-result-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a4d2e;
+}
+.iot-result-confidence {
+  font-size: 0.9rem;
+  color: #555;
+}
+.confidence-bar {
+  width: 100%;
+  height: 10px;
+  background: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.confidence-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#4caf50 0%, #8bc34a 100%);
+  transition: width 0.35s ease;
+}
+.iot-result-source {
+  font-size: 0.8rem;
+  color: #666;
+}
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* Large screens (laptops/desktops) */
+@media (min-width: 1200px) {
+  main, .main-content {
+    max-width: 1200px;
+    padding: 2.5rem;
+  }
+  .dashboard-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .dashboard-grid > * { grid-column: span 4; }
+  .dashboard-grid > .wide { grid-column: span 8; }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 900px) {
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.1rem; }
+  .stat-card .value { font-size: 2rem; }
+  .impact-card .value { font-size: 1.6rem; }
+  .progress-ring { width: 100px; height: 100px; }
+}
+
+/* Small screens (phones) */
+@media (max-width: 600px) {
+  .sidebar-menu a { padding: 0.9rem 1.25rem; font-size: 1.05rem; }
+  .dashboard-tabs { flex-wrap: wrap; gap: 0.5rem; }
+  .dashboard-tabs button { padding: 0.6rem 1rem; font-size: 0.95rem; }
+  main, .main-content { margin: 0.75rem; padding: 0.75rem; }
+  .card, .bin-status { padding: 0.9rem; }
+  .stat-card .value { font-size: 1.7rem; }
+  .badge { min-width: 88px; padding: 0.75rem; }
+  .badge-icon { font-size: 2rem; }
+  .progress-ring { width: 96px; height: 96px; }
+  .modal-content { padding: 1rem; max-width: 95vw; }
+  button, .btn { width: 100%; }
+  #boxStatusGrid, #bins { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+  .hamburger-menu { width: 36px; height: 36px; gap: 5px; }
+  .hamburger-menu span { width: 22px; height: 3px; }
+  .sidebar-title { font-size: 1.1rem; }
+  .sidebar-header { padding: 1.2rem 0.8rem 0.8rem; }
+  .modal-content { min-width: auto; }
+}
+
+.impact-card {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  padding: 1.25rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.impact-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.impact-card .value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a4d2e;
+  margin: 0.5rem 0;
+}
+
+.impact-card .label {
+  font-size: 0.9rem;
+  color: #2e7d32;
+}
+
+/* Animation */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in-up {
+  animation: slideInUp 0.5s ease-out;
+}
+
+/* Hover styles (apply only on devices that actually support hover/pointer precision) */
+@media (hover: hover) and (pointer: fine) {
+  .sidebar-menu a:hover { background: #388e3c; color: #b2ff59; }
+  .hamburger-menu:hover { background: #388e3c; }
+  .dashboard-tabs button:hover { background: #1a4d2e; color: #fff; }
+  .card:hover, .bin-status:hover { box-shadow: 0 6px 24px #0002; }
+  button:hover, .btn:hover { background: #1a4d2e; }
+  a:hover { color: #1a4d2e; }
+  .stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(26, 77, 46, 0.3); }
+  .badge:hover { transform: scale(1.05); }
+  .bin-card:hover { border-color: #43a047; box-shadow: 0 6px 20px rgba(67, 160, 71, 0.2); transform: translateY(-3px); }
+  .bin-card.full:hover { transform: none; }
+  .category-option:hover { background: #e8f5e9; border-color: #43a047; }
+}
